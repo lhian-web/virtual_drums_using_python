@@ -11,7 +11,7 @@ The **Virtual Drums** is an interactive drum kit that lets you play drums using 
 - **Easy to Use:** Run the Python script and start drumming—no special hardware needed.
 
 ### Requirements
-- Python 3.x
+- Python 3.11
 - OpenCV (`cv2`)
 - NumPy (`numpy`)
 - Pygame (`pygame`)
