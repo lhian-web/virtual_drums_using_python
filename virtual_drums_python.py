@@ -3,7 +3,6 @@ import numpy as np
 from pygame import mixer
 import time
 
-
 webcam = cv2.VideoCapture(0)
 
 ret,frame = webcam.read()
@@ -31,10 +30,8 @@ class Drum:
     def addImage(self,frame):
         o = frame[self.position[1]:self.position[1]+self.position[3],
         self.position[0]:self.position[0]+self.position[2]]
-
         frame[self.position[1]:self.position[1] + self.position[3],
         self.position[0]:self.position[0] + self.position[2]] = cv2.addWeighted(self.image,0.6,o,0.4,0.0)
-
         return frame
 
     def checkHit(self,pos):
@@ -49,7 +46,6 @@ tom_drum = Drum((400,300,100,100),"tom_drum")
 
 drums_list = [snare_drum,bass_drum,hi_hat,tom_drum]
 
-
 while True:
     ret,frame = webcam.read()
     if ret == False:
@@ -58,9 +54,9 @@ while True:
     frame = cv2.flip(frame,1)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    l = np.array([90, 50, 70])
-    u = np.array([128, 255, 255])
-    blue_mask = cv2.inRange(hsv, l, u)
+    lowerlimit = np.array([90, 50, 70])
+    upperlimit = np.array([128, 255, 255])
+    blue_mask = cv2.inRange(hsv, lowerlimit, upperlimit)
     blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_ERODE, np.ones((5, 5), np.uint8))
     blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_DILATE, np.ones((5, 5), np.uint8))
     cv2.imshow("Blue Mask",blue_mask)
